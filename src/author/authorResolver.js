@@ -1,5 +1,6 @@
 import authors from './authorDummy';
 import books from '../book/bookDummy'
+import authenticated from '../utils/authenticate';
 
 export default {
     Query: {
@@ -14,11 +15,11 @@ export default {
         },
     },
     Mutation: {
-        addAuthor(parent, args) {
+        addAuthor: authenticated((parent, args, context) => {
             const newAuthor = {...args, id: "a4"}
             authors.push(newAuthor)
 
             return newAuthor
-        }
+        })
     }
 };
