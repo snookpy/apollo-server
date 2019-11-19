@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server';
 import jwt from 'jsonwebtoken';
- 
+
 require('dotenv').config()
 
 import resolvers from './resolvers';
@@ -16,10 +16,14 @@ const server = new ApolloServer({
 
     let user = null
     const token = req.headers.authorization || '';
-   
+
     if (token) {
-      const decoded = jwt.verify(token, process.env.SUPERSECRET);
-      user = decoded;
+      try {
+        const decoded = jwt.verify(token, process.env.SUPERSECRET);
+        user = decoded;
+      } catch (err) {
+        throw Error('token invalid')
+      }
     }
 
     return {
