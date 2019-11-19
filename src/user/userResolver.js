@@ -10,13 +10,7 @@ export default {
         author(book, arg) {
          
             return author.find(a => book.authorId === a.id)
+            // return filter(books, { author: author.name });
         },
-    },
-    Mutation: {
-        addBook: (parent, args) => {
-
-            books.push({...args, id: "b4"})
-            return args;
-        }
     }
   };

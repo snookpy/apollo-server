@@ -1,10 +1,12 @@
 export default [
     {
+        id: 'b1',
         title: 'Harry Potter and the Chamber of Secrets',
-        author: 'J.K. Rowling',
+        authorId: 'a1'
     },
     {
+        id: 'b2',
         title: 'Jurassic Park',
-        author: 'Michael Crichton',
-    },
+        authorId: 'a2'
+    }
 ];

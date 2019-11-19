@@ -1,16 +1,19 @@
 import { gql } from 'apollo-server';
 
-import fooSchema from './foo/fooSchema';
 import bookSchema from './book/bookSchema';
+import authorSchema from './author/authorSchema';
 
 const linkType = gql`
 
-  extend type Query {
+  type Query {
     _: Boolean
   }
-
+  type Mutation {
+    _: Boolean
+  }
 `
 export default [
   linkType,
-  bookSchema
+  bookSchema,
+  authorSchema,
 ]
