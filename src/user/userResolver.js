@@ -1,16 +1,21 @@
-import books from './bookDummy';
-import author from '../author/authorDummy'
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+import user from './userDummy';
 
 export default {
-    Query: {
-        books: () => books,
-        book: (parent, args) => books.find(b => b.id === args.id)
-    },
-    Book: {
-        author(book, arg) {
-         
-            return author.find(a => book.authorId === a.id)
-            // return filter(books, { author: author.name });
-        },
+    Mutation: {
+        loginUser: (parent, args) => {
+            const { username, password } = args
+            if (username !== user.username) {
+                throw new Error('no users');
+            }
+
+            if (!bcrypt.compareSync(password, user.password)) {
+                throw new Error('wrong password');
+            }
+
+            return { token: jwt.sign(user, process.env.SUPERSECRET) };
+        }
     }
-  };
+};

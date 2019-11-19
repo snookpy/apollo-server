@@ -1,4 +1,6 @@
 import { ApolloServer } from 'apollo-server';
+import jwt from 'jsonwebtoken';
+ 
 require('dotenv').config()
 
 import resolvers from './resolvers';
@@ -15,14 +17,13 @@ const server = new ApolloServer({
     let user = null
     const token = req.headers.authorization || '';
    
-    // try to retrieve a user with the token
-    if(token)
-      user = {
-        username: "nook"
-      }
-   
-    // add the user to the context
+    if (token) {
+      const decoded = jwt.verify(token, process.env.SUPERSECRET);
+      user = decoded;
+    }
+
     return {
+      token,
       user
     };
   },
